@@ -26,7 +26,7 @@ if ((strpos($message, "/au") === 0) || (strpos($message, "!au") === 0) || (strpo
 		$mes_id = $sent['result']['message_id'];
 
 		$ch = curl_init();
-		curl_setopt($ch, CURLOPT_URL, 'https://response.artsvn.repl.co/api.php?lista='.$lista.'');
+		curl_setopt($ch, CURLOPT_URL, 'https://response.artsvn.repl.co/auth.php?lista='.$lista.'');
 		curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 		$fimaa = curl_exec($ch);

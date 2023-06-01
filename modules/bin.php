@@ -28,7 +28,7 @@ if(strpos($fim, '"type":"Credit"') !== false){
 };
   $time_end = microtime(true);
   $execution_time = ($time_end - $time_start);
-sendMessage($chatId, "<b>HECKER CHK ⚡️ - Status - $sat%0A━━━━━━━━━━━━━%0A[ϟ] TOOL: BIN LOOKUP%0A[ϟ] STATUS: VALID BIN ✅%0A[ϟ] BIN: $bin%0A[ϟ] COUNTRY: $country $emoji%0A[ϟ] BRAND: $brand%0A[ϟ] LEVEL: $scheme%0A[ϟ] TYPE: $type%0A[ϟ] BANK: $bank%0A━━━━━━━━━━━━━%0A[ϟ] TIME TAKEN: $execution_time's%0A[ϟ] Checked By: @$username%0A[ϟ] UserID: $userId%0A[ϟ] Premium Activated: $stat%0A</b>", $message_id);
+sendMessage($chatId, "<b>✦ 𝗮𝗿𝘁𝗲𝗿𝘅𝘀𝗸 𝗰𝗵𝗸 ! - Status - $sat%0A━━━━━━━━━━━━━%0A[✦] TOOL: BIN LOOKUP%0A[✦] STATUS: VALID BIN ✅%0A[✦] BIN: $bin%0A[✦] COUNTRY: $country $emoji%0A[✦] BRAND: $brand%0A[✦] LEVEL: $scheme%0A[✦] TYPE: $type%0A[✦] BANK: $bank%0A━━━━━━━━━━━━━%0A[✦] TIME TAKEN: $execution_time's%0A[✦] Checked By: @$username%0A[✦] UserID: $userId%0A[✦] Premium Activated: $stat%0A</b>", $message_id);
 }
 
   

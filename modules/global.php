@@ -18,7 +18,7 @@ $k = 'Premium';
 $f = 'False';
 $z = 'Free';
 $sat = 'PUBLIC RELEASE';
-$botby = 'HECKER';
+$botby = 'ARTERXSK';
 $pre = file_get_contents('pre.txt');
 $pre = explode("\n", $pre);
 if (in_array($userId, $pre)) {

